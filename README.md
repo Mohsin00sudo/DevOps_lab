@@ -12,8 +12,8 @@ A trained scikit-learn model that classifies a network connection record as **`a
 | Model artifact | `backend/models/model_bundle.joblib`, with keys `pipeline`, `features`, `task`, `model_version` (+ `classes`, `schema`, `metrics`) |
 | Training notebook | `notebooks/train_model.ipynb` |
 | Versions | Python 3.12, scikit-learn 1.9.1, Node.js 24 LTS (CI), Angular CLI 22.2 |
-| GitHub repo | `https://github.com/<YOUR_USERNAME>/<YOUR_REPO>` *(fill in after Stage 12)* |
-| GitHub Pages | `https://<YOUR_USERNAME>.github.io/<YOUR_REPO>/` *(static UI only)* |
+| GitHub repo | https://github.com/231965-ship-it/231965-DevOpsLab |
+| GitHub Pages | https://231965-ship-it.github.io/231965-DevOpsLab/ *(static UI only)* |
 
 ## Architecture
 
