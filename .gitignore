@@ -1,0 +1,29 @@
+# Python and local environments
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+.env
+.env.*
+!.env.example
+# Angular dependencies and build outputs
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+# Private data and unapproved artifacts
+# Raw NSL-KDD CSVs (~21 MB) are re-downloaded by notebooks/train_model.ipynb;
+# only the one-row data/sample_inputs.csv is committed.
+data/nsl_kdd_*.csv
+# Earlier Colab experiment on a different dataset (not part of this project)
+DevOps_task.ipynb
+# The model bundle (6 KB, trained on public synthetic traffic) IS committed so CI can
+# run the model-dependent API tests. Uncomment if your data/models cannot be published:
+# data/
+# backend/models/
+# Local logs
+*.log

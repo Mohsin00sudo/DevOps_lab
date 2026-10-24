@@ -1,0 +1,66 @@
+<main class="shell">
+  <header>
+    <h1>Network Intrusion Detection</h1>
+    <p>Teaching prototype • NSL-KDD • Logistic Regression pipeline v{{modelVersion}}</p>
+  </header>
+  @if (deployedStatic) {
+    <aside class="notice">Static GitHub Pages demonstration only.
+      Predictions require Flask and Angular running locally.</aside>
+  }
+  <form #form="ngForm" (ngSubmit)="submit()">
+    <div class="toolbar">
+      <h2>Model input features ({{fields.length}})</h2>
+      <div class="actions">
+        <button type="button" class="secondary" (click)="loadSample()">Load sample record</button>
+        <button type="button" class="secondary" (click)="clear()">Clear</button>
+      </div>
+    </div>
+    @for (group of groups; track group.name) {
+      <fieldset>
+        <legend>{{group.name}}</legend>
+        <div class="grid">
+          @for (field of group.fields; track field.name) {
+            <label>
+              <span class="label-text">{{field.label}}</span>
+              @if (field.kind === 'number') {
+                <input type="number" step="any" [name]="field.name"
+                  [min]="field.min ?? null" [max]="field.max ?? null"
+                  [(ngModel)]="values[field.name]" [required]="field.required" />
+              } @else {
+                <select [name]="field.name" [(ngModel)]="values[field.name]"
+                  [required]="field.required">
+                  <option [ngValue]="null">Select a value</option>
+                  @for (option of field.options ?? []; track option) {
+                    <option [ngValue]="option">{{option}}</option>
+                  }
+                </select>
+              }
+              <small><code>{{field.name}}</code> · {{hint(field)}}</small>
+            </label>
+          }
+        </div>
+      </fieldset>
+    }
+    <button type="submit" class="primary" [disabled]="loading() || deployedStatic">
+      {{loading() ? 'Predicting…' : 'Run local prediction'}}
+    </button>
+  </form>
+  @if (error()) { <p class="error" role="alert">{{error()}}</p> }
+  @if (result(); as r) {
+    <section class="result" [class.attack]="r.prediction === 'attack'" aria-live="polite">
+      <h2>Prediction result</h2>
+      <p class="verdict">{{r.prediction === 'attack' ? 'Attack' : 'Normal'}} traffic</p>
+      @if (r.probabilities) {
+        <h3>Class probabilities</h3>
+        @for (p of r.probabilities; track $index) {
+          <div class="prob">
+            <span>{{r.classes?.[$index] ?? $index}}</span>
+            <div class="bar"><div [style.width]="percent(p)"></div></div>
+            <span>{{percent(p)}}</span>
+          </div>
+        }
+      }
+      <p class="disclaimer">{{r.disclaimer}}</p>
+    </section>
+  }
+</main>
